@@ -3,25 +3,27 @@ import {NestedValue, useForm} from "react-hook-form";
 import React, {useState} from "react";
 import Link from "next/link";
 import UserAPI from "../../api/user";
-import {Router, useRouter} from "next/router";
+import {useRouter} from "next/router";
 
-const Login = (): JSX.Element => {
+const Register = (): JSX.Element => {
   const router = useRouter();
   const [ backendErrors, setBackendErrors ] = useState<string[]>([]);
 
   const {register, handleSubmit, formState: {errors}} = useForm<{}>({});
   const onSubmit = handleSubmit((data) => {
-    const { email, password } = data;
+    const { email, password, username } = data;
 
     const userApi = UserAPI;
-    userApi.login(email, password)
+    userApi.register(username ,email, password)
       .then(i => {
         router.push('/');
       })
       .catch((e) => setBackendErrors([e]));
   });
 
-  React.useEffect(() => {}, [register]);
+  React.useEffect(() => {
+
+  }, [register]);
 
   return (
     <div className="auth-page">
@@ -29,7 +31,7 @@ const Login = (): JSX.Element => {
         <div className="row">
 
           <div className="col-md-6 offset-md-3 col-xs-12">
-            <h1 className="text-xs-center">Sign in</h1>
+            <h1 className="text-xs-center">Sign up</h1>
             <p className="text-xs-center">
               <Link href={`/register`}>
                 Have an account?
@@ -41,6 +43,7 @@ const Login = (): JSX.Element => {
                 return <li key={error}>{ error }</li>
               })}
               {errors.email && <li> The Email field is required </li>}
+              {errors.username && <li> The Username field is required </li>}
               {errors.password && <li> The Password field is required </li>}
             </ul>
 
@@ -50,8 +53,8 @@ const Login = (): JSX.Element => {
                 <input
                   className="form-control form-control-lg"
                   type="text"
-                  placeholder="Your Email"
-                  {...register("email",
+                  placeholder="Your Name"
+                  {...register("username",
                     {
                       required: true,
                     })}
@@ -62,8 +65,21 @@ const Login = (): JSX.Element => {
                 <input
                   className="form-control form-control-lg"
                   type="text"
+                  placeholder="Email"
+                  {...register("email",{
+                    required: true,
+                  })}
+                />
+
+
+
+              </fieldset>
+              <fieldset className="form-group">
+                <input
+                  className="form-control form-control-lg"
+                  type="password"
                   placeholder="Password"
-                  {...register("password", {
+                  {...register("password",{
                     required: true,
                   })}
                 />
@@ -80,4 +96,4 @@ const Login = (): JSX.Element => {
   );
 };
 
-export default withLayout(Login);
+export default withLayout(Register);

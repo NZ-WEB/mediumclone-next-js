@@ -40,7 +40,7 @@ export const Header = (): JSX.Element => {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link href={`/login`}>
+                        <Link href={`/register`}>
                             <div className="nav-link" style={({cursor: "pointer"})}>
                                 Sing up
                             </div>
