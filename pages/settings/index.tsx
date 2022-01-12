@@ -1,4 +1,5 @@
 import {withLayout} from "../../layout/Layout";
+import withAuth from "../../HOC/withAuth";
 
 const Settings = (): JSX.Element => {
     return (
@@ -42,4 +43,4 @@ const Settings = (): JSX.Element => {
     );
 };
 
-export default withLayout(Settings);
+export default withAuth(withLayout(Settings));

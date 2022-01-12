@@ -61,16 +61,19 @@ const Login = (): JSX.Element => {
               <fieldset className="form-group">
                 <input
                   className="form-control form-control-lg"
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   {...register("password", {
                     required: true,
                   })}
                 />
+
               </fieldset>
+
               <button className="btn btn-lg btn-primary pull-xs-right">
                 Sign in
               </button>
+
             </form>
           </div>
 

@@ -28,7 +28,7 @@ const UserAPI = {
           },
         }
       );
-      localStorage.setItem("user", response.data.user.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
       return response.data.user;
     } catch (error) {
@@ -48,7 +48,7 @@ const UserAPI = {
         }
       );
       console.log(response.data)
-      localStorage.setItem('token', response.data.user.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
       return response.data.user;
     } catch (error) {
       throw error.response.data.message;
@@ -84,7 +84,6 @@ const UserAPI = {
           },
         }
       );
-      console.log('follow', response)
       return response;
     } catch (error) {
       return error.response;

@@ -1,4 +1,5 @@
 import {withLayout} from "../../layout/Layout";
+import withAuth from "../../HOC/withAuth";
 
 const Profile = (): JSX.Element => {
     return (
@@ -91,6 +92,6 @@ const Profile = (): JSX.Element => {
     );
 };
 
-export default withLayout(Profile);
+export default withAuth(withLayout(Profile));
 
 
