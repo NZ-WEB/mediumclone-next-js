@@ -10,7 +10,7 @@ const withAuth = (WrappedComponent: FunctionComponent) => {
 
       const user = localStorage.getItem("user");
 
-      // If there is no access token we redirect to "/" page.
+      // If there is no access token we redirect to "/login" page.
       if (!user) {
         Router.replace("/login");
         return null;

@@ -2,7 +2,7 @@ import {withLayout} from "../../layout/Layout";
 import {NestedValue, useForm} from "react-hook-form";
 import React, {useState} from "react";
 import Link from "next/link";
-import UserAPI from "../../api/user";
+import UserAPI from "../../service/user";
 import {Router, useRouter} from "next/router";
 
 const Login = (): JSX.Element => {
