@@ -1,6 +1,6 @@
 import ArticleService from "../../service/article";
 import {useEffect, useState} from "react";
-import {ArticleCard} from "../ArticleCard";
+import {ArticleCard} from "../articleCard/ArticleCard";
 import {TagService} from "../../service/tag";
 import {TagList} from "../tagList";
 import {ArticleInterface} from "../../interfaces/article.interface";

@@ -105,7 +105,14 @@ const UserAPI = {
       return error.response;
     }
   },
-  get: async (username: string) => axios.get(`${SERVER_BASE_URL}/profiles/${username}`),
+  get: async (username: string) => {
+    try {
+      const res = await axios.get(`${SERVER_BASE_URL}/profile/${username}`);
+      return await res.data.profile;
+    } catch (e) {
+      throw new Error(e)
+    }
+  },
 };
 
 export default UserAPI;

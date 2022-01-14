@@ -1,11 +1,26 @@
 import {withLayout} from "../../layout/Layout";
 import withAuth from "../../HOC/withAuth";
+import {useRouter} from "next/router";
+import {useEffect, useState} from "react";
+import UserAPI from "../../service/user";
 
 const Profile = (): JSX.Element => {
+  const router = useRouter();
+  const userService = UserAPI;
+  const [user, setUser] = useState({});
+  const {username} = router.query;
+
+  useEffect(() => {
+    if (username) {
+      userService.get(username).then(user => setUser(user));
+      console.log(user)
+    }
+
+  }, [username]);
+
     return (
         <div className="profile-page">
-
-            <div className="user-info">
+          <div className="user-info">
                 <div className="container">
                     <div className="row">
 

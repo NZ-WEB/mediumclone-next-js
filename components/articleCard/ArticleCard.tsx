@@ -1,4 +1,4 @@
-import {ArticleInterface} from "../interfaces/article.interface";
+import {ArticleInterface} from "../../interfaces/article.interface";
 import Link from 'next/link';
 import {data} from "browserslist";
 
@@ -26,11 +26,13 @@ export const ArticleCard = (article): JSX.Element => {
   return (
     <div className="article-preview">
       <div className="article-meta">
-        <Link href={`/profile`}>
+        <Link href={`/profile/${author.username}`}>
           {author.image ? <img src={author.image}/> : <a href="" className="author"> profile </a>}
         </Link>
         <div className="info">
-          <a href="" className="author"> {author.username} </a>
+          <Link href={`/profile/${author.username}`}>
+            <a href="" className="author"> {author.username} </a>
+          </Link>
           <span className="date">{ getFormateDate(createdAt) }</span>
         </div>
         <button className="btn btn-outline-primary btn-sm pull-xs-right">

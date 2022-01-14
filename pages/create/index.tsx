@@ -112,10 +112,7 @@ const Create = (): JSX.Element => {
                     className="form-control"
                     placeholder="Enter tags"
                     onInput={(input: FormEvent<HTMLInputElement>) => filterTags(input)}
-                    {...register("tags",
-                      {
-                        required: true,
-                      })}
+                    {...register("tags",)}
                   />
                   <div className="tag-list" style={{marginTop: '5px'}}>
                     {filteredTags && filteredTags.map(tag => (
