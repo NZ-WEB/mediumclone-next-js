@@ -3,10 +3,12 @@ import {useEffect, useState} from "react";
 import {ArticleCard} from "../ArticleCard";
 import {TagService} from "../../service/tag";
 import {TagList} from "../tagList";
+import {ArticleInterface} from "../../interfaces/article.interface";
 
 export const Articles = (): JSX.Element => {
   const articleService = new ArticleService();
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<ArticleInterface[] | []>([]);
+  const [tag, setTag] = useState<string | null>(null);
 
   const getArticleList = (params: string[]): void => {
     articleService.getArticleList(params)
@@ -18,6 +20,7 @@ export const Articles = (): JSX.Element => {
 
   const setArticleByTag = (e: MouseEvent, tag: string) => {
     e.preventDefault();
+    setTag(tag);
     articleService.getArticleList({tag})
       .then(articleList => setArticles(articleList))
       .catch((e) => {
@@ -39,7 +42,7 @@ export const Articles = (): JSX.Element => {
               <a className="nav-link disabled" href="">Your Feed</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link active" href="">Global Feed</a>
+              <a className="nav-link active" href="">{tag ? `#${tag}` : 'Global Feed'}</a>
             </li>
           </ul>
         </div>
@@ -52,7 +55,7 @@ export const Articles = (): JSX.Element => {
             </div>
           ))
           :
-          (<p>Found nothing</p>)
+          (<p style={{margin: "17px"}}>Found nothing</p>)
         }
         {/*  Articles End*/}
       </div>

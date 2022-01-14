@@ -19,7 +19,7 @@ export const TagList = ({ setArticleByTag }: Function):JSX.Element => {
 
   return (
     <div className="tag-list">
-      {tags && tags.map((tag) => <a key={tag} onClick={(e) => setArticleByTag(e, tag)} className="tag-pill tag-default">{tag}</a>)}
+      {tags && tags.map((tag) => <a style={{cursor: "pointer"}} key={tag} onClick={(e) => setArticleByTag(e, tag)} className="tag-pill tag-default">{tag}</a>)}
     </div>
   )
 };
