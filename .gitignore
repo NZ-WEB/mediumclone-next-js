@@ -12,6 +12,8 @@
 /.next/
 /out/
 
+/usils/constant.ts
+
 # production
 /build
 

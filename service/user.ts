@@ -3,18 +3,18 @@ import {SERVER_BASE_URL} from "../usils/constant"
 
 const UserAPI = {
   current: async () => {
-    const user: any = window.localStorage.getItem("user");
+    const user: any = JSON.parse(localStorage.getItem("user"));
     const token = user?.token;
     try {
-      const response = await axios.get(`/user`, {
+      const response = await axios.get(`${SERVER_BASE_URL}/user`, {
         headers: {
-          Authorization: `Token ${encodeURIComponent(token)}`,
+          Authorization: `Token ${token}`,
         },
       });
-      console.log('get res', response)
-      return response;
+      console.log('get res', response);
+      return response.data.user;
     } catch (error) {
-      return error.response;
+      throw new Error(error.response.data.message) ;
     }
   },
   login: async (email:string , password: string) => {
@@ -54,7 +54,10 @@ const UserAPI = {
       throw error.response.data.message;
     }
   },
-  save: async (user:any) => {
+  save: async (user: any) => {
+    const userLS: any = JSON.parse(localStorage.getItem("user"));
+    const token = userLS?.token;
+
     try {
       const response = await axios.put(
         `${SERVER_BASE_URL}/user`,
@@ -62,21 +65,22 @@ const UserAPI = {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Token ${encodeURIComponent(token)}`
           },
         }
       );
       console.log('update', response)
       return response;
     } catch (error) {
-      return error.response;
+      throw new Error(error.response.data.message);
     }
   },
   follow: async (username: string) => {
-    const user: any = JSON.parse(window.localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
     const token = user?.token;
     try {
       const response = await axios.post(
-        `${SERVER_BASE_URL}/profiles/${username}/follow`,
+        `${SERVER_BASE_URL}/profile/${username}/follow`,
         {},
         {
           headers: {
@@ -86,7 +90,7 @@ const UserAPI = {
       );
       return response;
     } catch (error) {
-      return error.response;
+     throw new Error(error.response.data.message);
     }
   },
   unfollow: async (username: string) => {
