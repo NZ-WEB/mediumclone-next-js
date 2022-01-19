@@ -52,4 +52,23 @@ export default class ArticleService {
       //return error.response.data.message;
     }
   }
+
+  async getArticleBySlug(slug: string): Promise<AxiosResponse> {
+    try {
+      const response = await axios.get(
+        `${SERVER_BASE_URL}/articles/${slug}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data.article, 'article by slug response')
+
+      return response.data.articles;
+    } catch (error) {
+      throw error.response;
+      //return error.response.data.message;
+    }
+  }
 }

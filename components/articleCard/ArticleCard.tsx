@@ -1,8 +1,12 @@
 import {ArticleInterface} from "../../interfaces/article.interface";
 import Link from 'next/link';
 import {data} from "browserslist";
+import { getFormateDate } from "../../usils/helpers";
+import { useRouter } from "next/router";
 
 export const ArticleCard = (article): JSX.Element => {
+
+  const router = useRouter();
 
   const {
     slug,
@@ -17,11 +21,7 @@ export const ArticleCard = (article): JSX.Element => {
     author
   } = article.article;
 
-  const getFormateDate = (date) => {
-    const curDate = new Date(date);
-    const months = ['Jan', 'Feb', 'Mach', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep','Oct', 'Nov'];
-    return months[curDate.getMonth()] + ' ' + (curDate.getDate()) + 'th';
-  }
+  
 
   return (
     <div className="article-preview">
@@ -39,13 +39,13 @@ export const ArticleCard = (article): JSX.Element => {
           <i className="ion-heart"></i> {favoritesCount}
         </button>
       </div>
-      <a href="" className="preview-link">
-        <h1>{title}</h1>
-        <p>{description}</p>
-        <Link href={'/article'}>
-          <span>Read more...</span>
-        </Link>
-      </a>
+      <span className="preview-link">
+          <h1>{title}</h1>
+          <p>{description}</p>
+          <Link href={`/article/${slug}`}>
+            <span style={{cursor: "pointer"}} >Read more...</span>
+          </Link>
+      </span>
     </div>
   )
 };
