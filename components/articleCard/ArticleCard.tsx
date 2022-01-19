@@ -3,10 +3,17 @@ import Link from 'next/link';
 import {data} from "browserslist";
 import { getFormateDate } from "../../usils/helpers";
 import { useRouter } from "next/router";
+import ArticleService from "../../service/article";
+import { useEffect, useState } from "react";
 
-export const ArticleCard = (article): JSX.Element => {
-
+export const ArticleCard = (articleProp): JSX.Element => {
+  const articleService = new ArticleService();
   const router = useRouter();
+  const [article, setArticle] = useState<ArticleInterface>(articleProp.article);
+  const [liked, setLiked] = useState<boolean>(false);
+
+  console.log(!!articleProp.article.favoritesCount, 'count');
+  
 
   const {
     slug,
@@ -19,9 +26,26 @@ export const ArticleCard = (article): JSX.Element => {
     tagList,
     updatedAt,
     author
-  } = article.article;
+  } = article;
 
-  
+  const likeArticle = (slug: string): void => {
+    if (liked) {
+      articleService.unlikeArticle(slug)
+        .then((newArticle) => setArticle(newArticle))
+        .then(() => setLiked(false))
+        .catch((e) => console.log(e))
+    } else {
+      articleService.likeArticle(slug)
+      .then(newArticle => setArticle(newArticle))
+      .then(newArticle => setLiked(true))
+      .catch((e) => console.log(e));
+    }
+  };
+
+  useEffect(() => {
+
+  }, [favoritesCount]);
+
 
   return (
     <div className="article-preview">
@@ -35,7 +59,7 @@ export const ArticleCard = (article): JSX.Element => {
           </Link>
           <span className="date">{ getFormateDate(createdAt) }</span>
         </div>
-        <button className="btn btn-outline-primary btn-sm pull-xs-right">
+        <button onClick={() => likeArticle(slug)} className="btn btn-outline-primary btn-sm pull-xs-right">
           <i className="ion-heart"></i> {favoritesCount}
         </button>
       </div>

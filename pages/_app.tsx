@@ -1,13 +1,15 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import {Router} from "next/router";
+import React from 'react';
+import Head from 'next/head';
 
 function MyApp({Component, pageProps, router}: AppProps): JSX.Element {
   Router.events.on('routeChangeComplete', (url: string):void => {});
 
   return (
       <>
-        <head>
+        <Head>
           <title>Mediumclone - nextjs</title>
           <link key={1} rel="icon" href="/favicon.ico"/>
           <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css"/>
@@ -16,7 +18,7 @@ function MyApp({Component, pageProps, router}: AppProps): JSX.Element {
           <link rel="stylesheet" href="//demo.productionready.io/main.css"/>
           <meta property="og:url" content={process.env.NEXT_PUBLIC_DOMAIN + router.asPath}/>
           <meta property="og:locale" content="ru_RU"/>
-        </head>
+        </Head>
         <Component {...pageProps} />
       </>);
 }

@@ -12,6 +12,12 @@ const Article = (): JSX.Element => {
     const router = useRouter();
     const { slug } = router.query;
 
+    const likeArticle = () => {
+        articleService.likeArticle(slug)
+          .then((newArticle) => setArticle(newArticle))
+          .catch((e) => console.log(e))
+    };
+
     useEffect(() => {
         if (slug) {
             articleService.getArticleBySlug(slug)
@@ -43,16 +49,19 @@ const Article = (): JSX.Element => {
                             </span>
                             <span className="date">{getFormateDate(article.createdAt)}</span>
                         </div>
-                        <button className="btn btn-sm btn-outline-secondary">
+                        <button 
+                            className="btn btn-sm btn-outline-secondary"
+                        >
                             <i className="ion-plus-round"></i>
                             &nbsp;
                             Follow {article.author && article.author.username} <span className="counter">({article.favoritesCount})</span>
                         </button>
                         &nbsp;&nbsp;
-                        <button className="btn btn-sm btn-outline-primary">
+                            
+                        <button onClick={() => likeArticle()} className="btn btn-sm btn-outline-primary">
                             <i className="ion-heart"></i>
                             &nbsp;
-                            Favorite Post <span className="counter">(29)</span>
+                            Favorite Post <span className="counter">({article.favoritesCount})</span>
                         </button>
                     </div>
 

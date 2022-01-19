@@ -1,6 +1,8 @@
 {
   "name": "mediumclone-next",
   "private": true,
+  "author": "kann1ball",
+  "version": "0.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
